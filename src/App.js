@@ -1,9 +1,14 @@
-function App() {
-  // "no-var": "error"
-  // var accot = "3";
-  // console.log(accot);
+import { Routes, Route } from 'react-router-dom';
+import Home from './views/pages/home';
+import Signin from './views/pages/signin';
 
-  return <>from-zero-react</>;
+export default function App() {
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="signin" element={<Signin />} />
+      </Routes>
+    </>
+  );
 }
-
-export default App;
