@@ -1,6 +1,10 @@
 # Getting Started with Create React App
 
-# eslint
+## create react app
+https://create-react-app.dev/
+删除不必要的文件
+
+## eslint
 ```
 "eslint": "eslint --ext .jsx,.js src/",
 ```
@@ -10,7 +14,7 @@ https://www.npmjs.com/package/eslint-plugin-react-hooks
 https://www.npmjs.com/package/eslint-plugin-prettier
 https://www.npmjs.com/package/eslint-plugin-n
 
-# prettier
+## prettier
 ```
   "prettier": {
     "printWidth": 120,
@@ -26,3 +30,4 @@ https://www.npmjs.com/package/eslint-plugin-n
 ```
 
 https://prettier.io/docs/en/configuration.html
+https://prettier.io/docs/en/options.html
