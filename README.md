@@ -31,3 +31,7 @@ https://www.npmjs.com/package/eslint-plugin-n
 
 https://prettier.io/docs/en/configuration.html
 https://prettier.io/docs/en/options.html
+
+## vscode插件
+1. Prettier - Code formatter
+2. ESLint
