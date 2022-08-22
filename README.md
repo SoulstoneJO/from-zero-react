@@ -1,7 +1,8 @@
 # Getting Started with Create React App
 
 ## 依赖
-yarn add react-router-dom@6
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/icons-material
 
-## router
-https://reactrouter.com/docs/en/v6/getting-started/installation#create-react-app
+## template
+https://mui.com/material-ui/getting-started/templates/
