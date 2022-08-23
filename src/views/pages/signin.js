@@ -12,15 +12,16 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 import Copyright from '../components/copyright';
+import { signInApi } from '../../api';
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
+    await signInApi({
+      mail: data.get('email'),
       password: data.get('password'),
-    });
+    }).then((response) => console.log(response.data));
   };
 
   return (

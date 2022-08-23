@@ -1,8 +1,8 @@
 # Getting Started with Create React App
 
 ## 依赖
-npm install @mui/material @emotion/react @emotion/styled
-npm install @mui/icons-material
+npm install axios
+npm install --save-dev http-proxy-middleware
 
 ## template
-https://mui.com/material-ui/getting-started/templates/
+https://github.com/axios/axios
