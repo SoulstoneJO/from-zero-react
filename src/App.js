@@ -1,23 +1,28 @@
 import { Routes, Route } from 'react-router-dom';
-import Home from './views/pages/home';
-import Signin from './views/pages/signin';
-import SignUp from './views/pages/signup';
-import ForgetPassword from './views/pages/forgetpassword';
-import ResetPassword from './views/pages/resetpassword';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import Home from './views/pages/Home';
+import Signin from './views/pages/SignIn';
+import SignUp from './views/pages/SignUp';
+import ForgetPassword from './views/pages/ForgetPassword';
+import ResetPassword from './views/pages/ResetPassword';
+import AuthProvider from './components/AuthProvider';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const theme = createTheme();
 
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="signin" element={<Signin />} />
-        <Route path="signup" element={<SignUp />} />
-        <Route path="forgetpassword" element={<ForgetPassword />} />
-        <Route path="resetpassword" element={<ResetPassword />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<ProtectedRoute children={<Home />} />} />
+          <Route path="signin" element={<Signin />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="forgetpassword" element={<ForgetPassword />} />
+          <Route path="resetpassword" element={<ResetPassword />} />
+        </Routes>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
