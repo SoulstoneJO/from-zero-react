@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// TODO
 const interceptor = () => {
   axios.interceptors.request.use(
     function (config) {
@@ -11,7 +10,7 @@ const interceptor = () => {
     function (error) {
       console.log(error);
       // Do something with request error
-      return Promise.reject(error);
+      return Promise.resolve({ resultCode: '999' });
     }
   );
 
@@ -25,7 +24,7 @@ const interceptor = () => {
     function (error) {
       // Any status codes that falls outside the range of 2xx cause this function to trigger
       console.log(error);
-      return Promise.reject(error);
+      return Promise.resolve({ resultCode: '999' });
     }
   );
 };

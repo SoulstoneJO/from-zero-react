@@ -1,7 +1,8 @@
-const LocalStorageKey = 'token';
+export const tokenKey = 'token';
+export const timerKey = 'timer';
 
-export const loadUserToken = () => {
-  const text = localStorage.getItem(LocalStorageKey);
+export const loadStorageItem = (key) => {
+  const text = localStorage.getItem(key);
   const token = text ? text : null;
   if (token) {
     return token;
@@ -10,14 +11,14 @@ export const loadUserToken = () => {
   }
 };
 
-export const saveUserToken = (token) => {
+export const saveStorageItem = (key, token) => {
   if (token) {
-    localStorage.setItem(LocalStorageKey, token);
+    localStorage.setItem(key, token);
   } else {
     return false;
   }
 };
 
-export const clearUserToken = () => {
-  localStorage.removeItem(LocalStorageKey);
+export const clearStorageItem = (key) => {
+  localStorage.removeItem(key);
 };

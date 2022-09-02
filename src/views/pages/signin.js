@@ -35,8 +35,7 @@ export default function SignIn() {
       await onLogin(data.get('email'), data.get('password'));
     } catch (error) {
       setOnLoading(false);
-      const { name } = error;
-      setAlert({ open: true, message: name });
+      setAlert({ open: true, message: error.message });
     }
     const after = new Date();
     let interval = after - before;
