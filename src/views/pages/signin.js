@@ -13,16 +13,16 @@ import { useState } from 'react';
 import Copyright from '../../components/Copyright';
 import { useAuth } from '../../components/AuthProvider';
 import LoadingBar from '../../components/LoadingBar';
-import ErrorSnackBar from '../../components/ErrorSnackBar';
+import SnackBar from '../../components/SnackBar';
+import { useTranslation } from 'react-i18next';
 
 export default function SignIn() {
+  const { t } = useTranslation();
   const [onLoading, setOnLoading] = useState(false);
   const [alert, setAlert] = useState({
     open: false,
+    severity: 'info',
     message: '',
-    handleClose: () => {
-      setAlert({ open: false, message: '' });
-    },
   });
   const { onLogin } = useAuth();
 
@@ -35,7 +35,7 @@ export default function SignIn() {
       await onLogin(data.get('email'), data.get('password'));
     } catch (error) {
       setOnLoading(false);
-      setAlert({ open: true, message: error.message });
+      setAlert({ open: true, severity: 'error', message: t(error.code) });
     }
     const after = new Date();
     let interval = after - before;
@@ -105,11 +105,12 @@ export default function SignIn() {
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-      <ErrorSnackBar
+      <SnackBar
         open={alert.open}
         message={alert.message}
+        severity={alert.severity}
         handleClose={() => {
-          setAlert({ open: false, message: '' });
+          setAlert({ ...alert, open: false, message: '' });
         }}
       />
     </LoadingBar>

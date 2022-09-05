@@ -4,7 +4,7 @@ function SlideTransition(props) {
   return <Slide {...props} direction="down" />;
 }
 
-const ErrorSnackBar = (props) => {
+const SnackBar = (props) => {
   const handleClose = (_event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -18,11 +18,11 @@ const ErrorSnackBar = (props) => {
       open={props.open}
       onClose={handleClose}
       TransitionComponent={SlideTransition}>
-      <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+      <Alert onClose={handleClose} severity={props.severity} sx={{ width: '100%' }}>
         {props.message}
       </Alert>
     </Snackbar>
   );
 };
 
-export default ErrorSnackBar;
+export default SnackBar;

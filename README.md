@@ -1,11 +1,9 @@
 # Getting Started with Create React App
 
 ## 依赖
-npm install axios
-npm install --save-dev http-proxy-middleware
+npm install react-i18next i18next --save
 
-## axios
-https://github.com/axios/axios
+## i18n next
+https://www.jb51.net/article/226050.htm
+https://locize.com/blog/react-i18next/
 
-## 解构赋值
-https://juejin.cn/post/6844903865259655181  

@@ -14,14 +14,16 @@ import Copyright from '../../components/Copyright';
 import { sendNotificationApi } from '../../api';
 import { validate, singleValidate, messageValidate } from '../../lib/validation';
 import PasswordTextField from '../../components/PasswordTextField';
-import ErrorSnackBar from '../../components/ErrorSnackBar';
+import SnackBar from '../../components/SnackBar';
 import { queryMessage } from '../../lib/message';
 import VerificationCodeField from '../../components/VerificationCodeField';
 import { useAuth } from '../../components/AuthProvider';
-import { ApiMessage } from '../../api/reponse';
 import LoadingBar from '../../components/LoadingBar';
+import { useTranslation } from 'react-i18next';
+import CommonBar from '../../components/CommonBar';
 
 export default function SignUp() {
+  const { t } = useTranslation();
   const [data, setData] = useState({
     firstName: '',
     lastName: '',
@@ -38,10 +40,8 @@ export default function SignUp() {
   });
   const [alert, setAlert] = useState({
     open: false,
+    severity: 'info',
     message: '',
-    handleClose: () => {
-      setAlert({ open: false, message: '' });
-    },
   });
   const [onLoading, setOnLoading] = useState(false);
   const { onSignup } = useAuth();
@@ -56,26 +56,22 @@ export default function SignUp() {
     if (messageValidate(data.mail, ['mail_not_null', 'mail_check'])) {
       return true;
     } else {
-      setAlert({ open: true, message: queryMessage('mail_error') });
+      setAlert({ open: true, severity: 'error', message: queryMessage('mail_error') });
       return false;
     }
   };
 
   const sendValidationMail = async () => {
-    const {
-      data: { resultCode },
-    } = await sendNotificationApi({
-      firstName: data.firstName,
-      lastName: data.lastName,
-      mail: data.mail,
-      verificationCode: data.verificationCode,
-    });
-    if (resultCode === '000') {
-      setAlert({ open: true, message: queryMessage('send_notification_success') });
-    } else if (resultCode === '100') {
-      setAlert({ open: true, message: ApiMessage[resultCode] });
-    } else {
-      setAlert({ open: true, message: queryMessage('send_notification_fail') });
+    try {
+      await sendNotificationApi({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        mail: data.mail,
+        verificationCode: data.verificationCode,
+      });
+      setAlert({ open: true, severity: 'success', message: queryMessage('send_notification_success') });
+    } catch (error) {
+      setAlert({ open: true, severity: 'error', message: t(error.code) });
     }
   };
 
@@ -92,7 +88,7 @@ export default function SignUp() {
 
     for (const key in validation) {
       if (validation[key].error) {
-        setAlert({ open: true, message: `${key} is not correct.` });
+        setAlert({ open: true, severity: 'error', message: t('validation_text', { key }) });
         return;
       }
     }
@@ -103,7 +99,7 @@ export default function SignUp() {
       await onSignup(data.firstName, data.lastName, data.mail, data.password, data.verificationCode);
     } catch (error) {
       setOnLoading(false);
-      setAlert({ open: true, message: error.message });
+      setAlert({ open: true, severity: 'error', message: t(error.code) });
     }
     const after = new Date();
     let interval = after - before;
@@ -119,6 +115,7 @@ export default function SignUp() {
 
   return (
     <LoadingBar isLoading={onLoading}>
+      <CommonBar />
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
@@ -131,7 +128,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            {t('sign_up')}
           </Typography>
           <Box onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -142,7 +139,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="firstName"
-                  label="First Name"
+                  label={t('firstName')}
                   value={data.firstName}
                   helperText={validation.firstName.message}
                   error={validation.firstName.error}
@@ -155,7 +152,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="lastName"
-                  label="Last Name"
+                  label={t('lastName')}
                   value={data.lastName}
                   name="lastName"
                   helperText={validation.lastName.message}
@@ -169,7 +166,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="mail"
-                  label="Email Address"
+                  label={t('mail_address')}
                   value={data.mail}
                   name="mail"
                   helperText={validation.mail.message}
@@ -180,6 +177,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <PasswordTextField
+                  label={t('password')}
                   value={data.password}
                   helperText={validation.password.message}
                   error={validation.password.error}
@@ -187,6 +185,7 @@ export default function SignUp() {
                 />
               </Grid>
               <VerificationCodeField
+                label={t('verification_code')}
                 value={data.verificationCode}
                 error={validation.verificationCode.error}
                 onChange={(e) => handleChange(e.target.name, e.target.value, ['code_not_null', 'max_07'])}
@@ -195,23 +194,24 @@ export default function SignUp() {
               />
             </Grid>
             <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={() => handleSubmit()}>
-              Sign Up
+              {t('sign_up')}
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="signin" variant="body2">
-                  Already have an account? Sign in
+                  {t('go_sign_in_text')}
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />
-        <ErrorSnackBar
+        <SnackBar
           open={alert.open}
           message={alert.message}
+          severity={alert.severity}
           handleClose={() => {
-            setAlert({ open: false, message: '' });
+            setAlert({ ...alert, open: false, message: '' });
           }}
         />
       </Container>

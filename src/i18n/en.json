@@ -1,0 +1,21 @@
+{
+  "001": "PARAMETER ERROR",
+  "002": "AUTH ERROR",
+  "003": "VERIFICATION CODE is not existed",
+  "004": "VERIFICATION CODE is not correct!",
+  "100": "User is already existed, please login.",
+  "998": "server error",
+  "999": "NETWOEK ERROR",
+  "sign_up": "SIGN UP",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "mail_address": "Email Address",
+  "password": "password",
+  "verification_code": "verification code",
+  "send_code": "send code",
+  "wait_text": "WAIT {{count}} Sec",
+  "validation_text": "{{key}} is not correct.",
+  "go_sign_in_text": "Already have an account? Sign in",
+  "go_forget_password_text": "Forgot password?",
+  "go_sign_up_text": "Don't have an account? Sign Up"
+}

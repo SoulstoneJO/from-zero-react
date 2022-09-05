@@ -1,32 +1,40 @@
 import axios from 'axios';
 
-const interceptor = () => {
-  axios.interceptors.request.use(
-    function (config) {
-      console.log(config);
-      // Do something before request is sent
-      return config;
-    },
-    function (error) {
-      console.log(error);
-      // Do something with request error
-      return Promise.resolve({ resultCode: '999' });
+axios.interceptors.request.use(
+  function (config) {
+    return config;
+  },
+  function (error) {
+    console.log('request error');
+    console.log(error);
+    if (error.name === 'AxiosError') {
+      const appError = new Error();
+      appError.code = 999;
+      return Promise.reject(appError);
     }
-  );
+    return Promise.reject(error);
+  }
+);
 
-  // Add a response interceptor
-  axios.interceptors.response.use(
-    function (response) {
-      // Any status code that lie within the range of 2xx cause this function to trigger
-      console.log(response);
-      return response;
-    },
-    function (error) {
-      // Any status codes that falls outside the range of 2xx cause this function to trigger
-      console.log(error);
-      return Promise.resolve({ resultCode: '999' });
+// Add a response interceptor
+axios.interceptors.response.use(
+  function (response) {
+    if (response.data.resultCode !== '000') {
+      const appError = new Error();
+      appError.code = response.data.resultCode;
     }
-  );
-};
+    return response;
+  },
+  function (error) {
+    console.log('response error');
+    console.log(error);
+    if (error.name === 'AxiosError') {
+      const appError = new Error();
+      appError.code = 998;
+      return Promise.reject(appError);
+    }
+    return Promise.reject(error);
+  }
+);
 
-export default interceptor;
+export default axios;

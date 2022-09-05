@@ -1,0 +1,20 @@
+{
+  "001": "参数错误",
+  "002": "权限异常",
+  "003": "请重新发送验证码",
+  "004": "验证码不正确!",
+  "100": "用户已存在",
+  "998": "服务器异常",
+  "999": "网络异常",
+  "firstName": "名",
+  "lastName": "姓",
+  "mail_address": "电子邮箱地址",
+  "password": "密码",
+  "verification_code": "验证码",
+  "send_code": "发送验证码",
+  "wait_text": "{{count}} 秒后",
+  "sign_up": "注  册",
+  "go_sign_in_text": "已有账号，前往登陆页面",
+  "go_forget_password_text": "忘记密码了?",
+  "go_sign_up_text": "没有账号，现在注册！"
+}

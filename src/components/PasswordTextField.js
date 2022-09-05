@@ -18,7 +18,7 @@ const PasswordTextField = (props) => {
       required
       fullWidth
       name="password"
-      label="password"
+      label={props.label}
       value={props.value}
       type={showPassword ? 'text' : 'password'}
       id="password"

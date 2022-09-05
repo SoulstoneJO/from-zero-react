@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { signInApi, signUpApi } from '../api';
-import { ApiCode, ApiMessage } from '../api/reponse';
+import { ApiCode } from '../api/reponse';
 import { clearStorageItem, loadStorageItem, saveStorageItem, tokenKey } from '../lib/handler';
 
 const AuthContext = React.createContext(null);
@@ -17,29 +17,20 @@ const AuthProvider = ({ children }) => {
 
   const handleSignUp = async (firstName, lastName, mail, password, verificationCode) => {
     const {
-      data: { resultCode, token },
+      data: { token },
     } = await signUpApi({ firstName, lastName, mail, password, verificationCode });
-    if (resultCode === ApiCode.SUCCESS_CODE) {
-      setToken(token);
-      saveStorageItem(tokenKey, token);
-      navigate('/');
-    } else {
-      throw new Error(ApiMessage[resultCode]);
-    }
+    setToken(token);
+    saveStorageItem(tokenKey, token);
+    navigate('/');
   };
 
   const handleLogin = async (mail, password) => {
     const {
-      data: { resultCode, token },
+      data: { token },
     } = await signInApi({ mail, password });
-    if (resultCode === ApiCode.SUCCESS_CODE) {
-      setToken(token);
-      saveStorageItem(tokenKey, token);
-      navigate('/');
-    } else {
-      console.log('ApiMessage[resultCode]: ', ApiMessage[resultCode]);
-      throw new Error(ApiMessage[resultCode]);
-    }
+    setToken(token);
+    saveStorageItem(tokenKey, token);
+    navigate('/');
   };
 
   const handleLogout = () => {

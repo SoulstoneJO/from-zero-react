@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { clearStorageItem, loadStorageItem, saveStorageItem, timerKey } from '../lib/handler';
 import { useRef } from 'react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const VerificationCodeField = (props) => {
   const [count, setCount] = useState(-1);
@@ -45,6 +46,7 @@ const VerificationCodeField = (props) => {
     }
   }, []);
 
+  const { t } = useTranslation();
   return (
     <>
       <Grid item xs={12} sm={7}>
@@ -53,7 +55,7 @@ const VerificationCodeField = (props) => {
           required
           fullWidth
           id="verificationCode"
-          label="verification code"
+          label={props.label}
           value={props.value}
           error={props.error}
           inputProps={{
@@ -70,7 +72,7 @@ const VerificationCodeField = (props) => {
           color="success"
           endIcon={<SendIcon />}
           onClick={handleClick}>
-          {count < 0 ? 'SEND CODE' : `WAIT ${count} Sec`}
+          {count < 0 ? t('send_code') : t('wait_text', { count })}
         </Button>
       </Grid>
     </>

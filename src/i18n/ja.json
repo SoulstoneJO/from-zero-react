@@ -1,0 +1,20 @@
+{
+  "001": "パラメータ エラー",
+  "002": "認証 エラー",
+  "003": "認証番号は存在しません",
+  "004": "認証番号は正しくない!",
+  "100": "ユーザーは既に存在します。ログインしてください。",
+  "998": " SERVER ERROR",
+  "999": "NETWOEK ERROR",
+  "firstName": "名",
+  "lastName": "姓",
+  "mail_address": "メールアドレス",
+  "password": "パスワード",
+  "verification_code": "認証番号",
+  "send_code": "番号発送",
+  "wait_text": " {{count}} 秒待つ",
+  "sign_up": "登 録",
+  "go_sign_in_text": "登録ページへ",
+  "go_forget_password_text": "パスワードを忘れました?",
+  "go_sign_up_text": "今登録します！"
+}
