@@ -15,7 +15,6 @@ import { sendNotificationApi } from '../../api';
 import { validate, singleValidate, messageValidate } from '../../lib/validation';
 import PasswordTextField from '../../components/PasswordTextField';
 import SnackBar from '../../components/SnackBar';
-import { queryMessage } from '../../lib/message';
 import VerificationCodeField from '../../components/VerificationCodeField';
 import { useAuth } from '../../components/AuthProvider';
 import LoadingBar from '../../components/LoadingBar';
@@ -56,7 +55,7 @@ export default function SignUp() {
     if (messageValidate(data.mail, ['mail_not_null', 'mail_check'])) {
       return true;
     } else {
-      setAlert({ open: true, severity: 'error', message: queryMessage('mail_error') });
+      setAlert({ open: true, severity: 'error', message: t('mail_error') });
       return false;
     }
   };
@@ -69,7 +68,7 @@ export default function SignUp() {
         mail: data.mail,
         verificationCode: data.verificationCode,
       });
-      setAlert({ open: true, severity: 'success', message: queryMessage('send_notification_success') });
+      setAlert({ open: true, severity: 'success', message: t('send_notification_success') });
     } catch (error) {
       setAlert({ open: true, severity: 'error', message: t(error.code) });
     }

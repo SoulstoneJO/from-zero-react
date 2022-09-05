@@ -6,6 +6,7 @@
   "100": "ユーザーは既に存在します。ログインしてください。",
   "998": " SERVER ERROR",
   "999": "NETWOEK ERROR",
+
   "firstName": "名",
   "lastName": "姓",
   "mail_address": "メールアドレス",
@@ -16,5 +17,17 @@
   "sign_up": "登 録",
   "go_sign_in_text": "登録ページへ",
   "go_forget_password_text": "パスワードを忘れました?",
-  "go_sign_up_text": "今登録します！"
+  "go_sign_up_text": "今登録します！",
+
+  "send_notification_success": "認証番号発送成功しました, メールボックスでご確認ください",
+  "send_notification_fail": "認証番号発送失敗しました",
+  "first_name_not_null": "名（氏名）を入力してください",
+  "last_name_not_null": "姓（氏名）を入力してください",
+  "password_not_null": "パスワードを入力してください",
+  "code_not_null": "認証番号を入力してください",
+  "mail_not_null": "メールアドレスを入力してください",
+  "mail_check": "メールアドレスに誤りがあります",
+  "mail_error": "メールアドレスに誤りがあります",
+  "max_20": "長すぎ",
+  "password_check": "8文字以上半角数字、英小文字、英大文字."
 }

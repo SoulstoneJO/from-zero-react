@@ -6,6 +6,7 @@
   "100": "用户已存在",
   "998": "服务器异常",
   "999": "网络异常",
+
   "firstName": "名",
   "lastName": "姓",
   "mail_address": "电子邮箱地址",
@@ -16,5 +17,17 @@
   "sign_up": "注  册",
   "go_sign_in_text": "已有账号，前往登陆页面",
   "go_forget_password_text": "忘记密码了?",
-  "go_sign_up_text": "没有账号，现在注册！"
+  "go_sign_up_text": "没有账号，现在注册！",
+
+  "send_notification_success": "验证码发送成功，请查看邮箱",
+  "send_notification_fail": "验证码发送失败",
+  "first_name_not_null": "请输入名",
+  "last_name_not_null": "请输入姓",
+  "password_not_null": "请输入密码",
+  "code_not_null": "请输入验证码",
+  "mail_not_null": "请输入邮箱地址",
+  "mail_check": "邮箱地址格式不正确",
+  "mail_error": "邮箱地址格式不正确",
+  "max_20": "太长了",
+  "password_check": "密码至少8位以上，并包含半角数字、英大小写字母"
 }
