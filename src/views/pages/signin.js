@@ -15,6 +15,7 @@ import { useAuth } from '../../components/AuthProvider';
 import LoadingBar from '../../components/LoadingBar';
 import SnackBar from '../../components/SnackBar';
 import { useTranslation } from 'react-i18next';
+import CommonBar from '../../components/CommonBar';
 
 export default function SignIn() {
   const { t } = useTranslation();
@@ -51,6 +52,7 @@ export default function SignIn() {
 
   return (
     <LoadingBar isLoading={onLoading}>
+      <CommonBar />
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
@@ -71,7 +73,7 @@ export default function SignIn() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label={t('mail_address')}
               name="email"
               autoComplete="email"
               autoFocus
@@ -81,7 +83,7 @@ export default function SignIn() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label={t('password')}
               type="password"
               id="password"
               autoComplete="current-password"

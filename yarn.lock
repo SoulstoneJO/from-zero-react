@@ -5141,6 +5141,13 @@
   "resolved" "https://registry.npmjs.org/human-signals/-/human-signals-2.1.0.tgz"
   "version" "2.1.0"
 
+"i18next-browser-languagedetector@^6.1.5":
+  "integrity" "sha512-11t7b39oKeZe4uyMxLSPnfw28BCPNLZgUk7zyufex0zKXZ+Bv+JnmJgoB+IfQLZwDt1d71PM8vwBX1NCgliY3g=="
+  "resolved" "https://registry.npmjs.org/i18next-browser-languagedetector/-/i18next-browser-languagedetector-6.1.5.tgz"
+  "version" "6.1.5"
+  dependencies:
+    "@babel/runtime" "^7.18.9"
+
 "i18next@^21.9.1", "i18next@>= 19.0.0":
   "integrity" "sha512-ITbDrAjbRR73spZAiu6+ex5WNlHRr1mY+acDi2ioTHuUiviJqSz269Le1xHAf0QaQ6GgIHResUhQNcxGwa/PhA=="
   "resolved" "https://registry.npmjs.org/i18next/-/i18next-21.9.1.tgz"

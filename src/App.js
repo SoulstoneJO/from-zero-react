@@ -5,7 +5,6 @@ import Home from './views/pages/Home';
 import Signin from './views/pages/SignIn';
 import SignUp from './views/pages/SignUp';
 import ForgetPassword from './views/pages/ForgetPassword';
-import ResetPassword from './views/pages/ResetPassword';
 import AuthProvider from './components/AuthProvider';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -20,7 +19,6 @@ export default function App() {
           <Route path="signin" element={<Signin />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="forgetpassword" element={<ForgetPassword />} />
-          <Route path="resetpassword" element={<ResetPassword />} />
         </Routes>
       </AuthProvider>
     </ThemeProvider>
