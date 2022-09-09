@@ -1,5 +1,3 @@
-import { queryMessage } from './message';
-
 const checkParam = (rule, value) => {
   let regex = '';
   let result = true;
@@ -34,7 +32,7 @@ export const validate = (validateArray) => {
     const failRule = ruleArray.find((rule) => !checkParam(rule, param));
 
     return failRule
-      ? (result[name] = { error: true, message: queryMessage(failRule) })
+      ? (result[name] = { error: true, message: failRule })
       : (result[name] = { error: false, message: '' });
   });
 
@@ -44,7 +42,7 @@ export const validate = (validateArray) => {
 export const singleValidate = (param, ruleArray) => {
   const failRule = ruleArray.find((rule) => !checkParam(rule, param));
 
-  return failRule ? { error: true, message: queryMessage(failRule) } : { error: false, message: '' };
+  return failRule ? { error: true, message: failRule } : { error: false, message: '' };
 };
 
 export const messageValidate = (param, ruleArray) => ruleArray.some((rule) => checkParam(rule, param));

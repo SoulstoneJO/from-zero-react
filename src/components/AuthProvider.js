@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { signInApi, signUpApi } from '../api';
-import { ApiCode } from '../api/reponse';
+import { resetPasswordApi, signInApi, signUpApi } from '../api';
 import { clearStorageItem, loadStorageItem, saveStorageItem, tokenKey } from '../lib/handler';
 
 const AuthContext = React.createContext(null);
@@ -19,6 +18,15 @@ const AuthProvider = ({ children }) => {
     const {
       data: { token },
     } = await signUpApi({ firstName, lastName, mail, password, verificationCode });
+    setToken(token);
+    saveStorageItem(tokenKey, token);
+    navigate('/');
+  };
+
+  const handleResetPassword = async (mail, newPassword, verificationCode) => {
+    const {
+      data: { token },
+    } = await resetPasswordApi({ mail, newPassword, verificationCode });
     setToken(token);
     saveStorageItem(tokenKey, token);
     navigate('/');
@@ -44,6 +52,7 @@ const AuthProvider = ({ children }) => {
     onLogout: handleLogout,
     onLogin: handleLogin,
     onSignup: handleSignUp,
+    onResetPassword: handleResetPassword,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

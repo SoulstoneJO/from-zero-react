@@ -9,33 +9,30 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Copyright from '../../components/Copyright';
-import { signUpNotificationApi } from '../../api';
-import { validate, singleValidate, messageValidate } from '../../lib/validation';
-import PasswordTextField from '../../components/PasswordTextField';
-import SnackBar from '../../components/SnackBar';
-import VerificationCodeField from '../../components/VerificationCodeField';
-import { useAuth } from '../../components/AuthProvider';
 import LoadingBar from '../../components/LoadingBar';
-import { useTranslation } from 'react-i18next';
 import CommonBar from '../../components/CommonBar';
+import PasswordTextField from '../../components/PasswordTextField';
+import VerificationCodeField from '../../components/VerificationCodeField';
+import { singleValidate, messageValidate, validate } from '../../lib/validation';
+import { resetPasswordNotificationApi } from '../../api';
+import SnackBar from '../../components/SnackBar';
+import { useAuth } from '../../components/AuthProvider';
 
-export default function SignUp() {
+const ResetPassword = () => {
   const { t } = useTranslation();
-  const { onSignup } = useAuth();
+  const { onResetPassword } = useAuth();
+  const [onLoading, setOnLoading] = useState(false);
   const [data, setData] = useState({
-    firstName: '',
-    lastName: '',
     mail: '',
-    password: '',
+    newPassword: '',
     verificationCode: '',
   });
   const [validation, setValidation] = useState({
-    firstName: { error: false, message: '' },
-    lastName: { error: false, message: '' },
     mail: { error: false, message: '' },
-    password: { error: false, message: '' },
+    newPassword: { error: false, message: '' },
     verificationCode: { error: false, message: '' },
   });
   const [alert, setAlert] = useState({
@@ -43,7 +40,6 @@ export default function SignUp() {
     severity: 'info',
     message: '',
   });
-  const [onLoading, setOnLoading] = useState(false);
 
   const handleChange = (name, param, ruleArray) => {
     setData({ ...data, [name]: param });
@@ -62,9 +58,7 @@ export default function SignUp() {
 
   const sendValidationMail = async () => {
     try {
-      await signUpNotificationApi({
-        firstName: data.firstName,
-        lastName: data.lastName,
+      await resetPasswordNotificationApi({
         mail: data.mail,
       });
       setAlert({ open: true, severity: 'success', message: t('send_notification_success') });
@@ -75,10 +69,8 @@ export default function SignUp() {
 
   const handleSubmit = async () => {
     const validateResult = validate([
-      { name: 'firstName', param: data.firstName, ruleArray: ['first_name_not_null', 'max_20'] },
-      { name: 'lastName', param: data.lastName, ruleArray: ['last_name_not_null', 'max_20'] },
       { name: 'mail', param: data.mail, ruleArray: ['mail_not_null', 'mail_check'] },
-      { name: 'password', param: data.password, ruleArray: ['password_not_null', 'password_check'] },
+      { name: 'newPassword', param: data.newPassword, ruleArray: ['password_not_null', 'password_check'] },
       { name: 'verificationCode', param: data.verificationCode, ruleArray: ['code_not_null', 'max_07'] },
     ]);
 
@@ -94,7 +86,7 @@ export default function SignUp() {
     const before = new Date();
     setOnLoading(true);
     try {
-      await onSignup(data.firstName, data.lastName, data.mail, data.password, data.verificationCode);
+      await onResetPassword(data.mail, data.newPassword, data.verificationCode);
     } catch (error) {
       setOnLoading(false);
       setAlert({ open: true, severity: 'error', message: t(error.code) });
@@ -126,60 +118,33 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            {t('sign_up')}
+            {t('reset_password')}
           </Typography>
-          <Box sx={{ mt: 3 }}>
+          <Box component="form" sx={{ mt: 1, width: 1 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  id="firstName"
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  label={t('firstName')}
-                  value={data.firstName}
-                  helperText={t(validation.firstName.message)}
-                  error={validation.firstName.error}
-                  onChange={(e) => handleChange(e.target.name, e.target.value, ['first_name_not_null', 'max_20'])}
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  id="lastName"
-                  required
-                  fullWidth
-                  label={t('lastName')}
-                  value={data.lastName}
-                  name="lastName"
-                  helperText={t(validation.lastName.message)}
-                  error={validation.lastName.error}
-                  onChange={(e) => handleChange(e.target.name, e.target.value, ['last_name_not_null', 'max_20'])}
-                  autoComplete="family-name"
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
-                  id="mail"
+                  margin="normal"
                   required
                   fullWidth
+                  id="mail"
                   label={t('mail_address')}
                   value={data.mail}
-                  name="mail"
                   helperText={t(validation.mail.message)}
                   error={validation.mail.error}
-                  onChange={(e) => handleChange(e.target.name, e.target.value, ['mail_not_null', 'mail_check'])}
+                  name="mail"
                   autoComplete="email"
+                  onChange={(e) => handleChange(e.target.name, e.target.value, ['mail_not_null', 'mail_check'])}
+                  autoFocus
                 />
               </Grid>
               <Grid item xs={12}>
                 <PasswordTextField
-                  name="password"
-                  label={t('password')}
-                  value={data.password}
-                  helperText={t(validation.password.message)}
-                  error={validation.password.error}
+                  label={t('new_password')}
+                  name="newPassword"
+                  value={data.newPassword}
+                  helperText={t(validation.newPassword.message)}
+                  error={validation.newPassword.error}
                   onChange={(e) => handleChange(e.target.name, e.target.value, ['password_not_null', 'password_check'])}
                 />
               </Grid>
@@ -192,19 +157,24 @@ export default function SignUp() {
                 sendValidationMail={sendValidationMail}
               />
             </Grid>
-            <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={() => handleSubmit()}>
-              {t('sign_up')}
+            <Button fullWidth variant="contained" onClick={handleSubmit} sx={{ mt: 3, mb: 2 }}>
+              {t('reset_password')}
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
+            <Grid container>
+              <Grid item xs>
                 <Link href="signin" variant="body2">
                   {t('go_sign_in_text')}
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="signup" variant="body2">
+                  {t('go_sign_up_text')}
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright sx={{ mt: 8, mb: 4 }} />
         <SnackBar
           open={alert.open}
           message={alert.message}
@@ -216,4 +186,6 @@ export default function SignUp() {
       </Container>
     </LoadingBar>
   );
-}
+};
+
+export default ResetPassword;

@@ -65,7 +65,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            {t('sign_in')}
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -89,17 +89,17 @@ export default function SignIn() {
               autoComplete="current-password"
             />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Sign In
+              {t('sign_in')}
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="forgetpassword" variant="body2">
-                  Forgot password?
+                <Link href="reset_password" variant="body2">
+                  {t('go_forget_password_text')}
                 </Link>
               </Grid>
               <Grid item>
                 <Link href="signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {t('go_sign_up_text')}
                 </Link>
               </Grid>
             </Grid>

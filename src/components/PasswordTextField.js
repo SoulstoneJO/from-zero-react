@@ -17,7 +17,7 @@ const PasswordTextField = (props) => {
     <TextField
       required
       fullWidth
-      name="password"
+      name={props.name}
       label={props.label}
       value={props.value}
       type={showPassword ? 'text' : 'password'}
